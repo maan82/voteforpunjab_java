@@ -57,7 +57,28 @@ function make_red(id) {
  document.getElementById(id).style.color = "red";
 }
     </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
 
+            var data = google.visualization.arrayToDataTable([
+                ['Party', 'Vote count'],
+                <c:forEach items="${stat}" var="listItem">
+                    ['<c:out value="${listItem.party}" />', <c:out value="${listItem.count}" />],
+                </c:forEach>
+            ]);
+
+            var options = {
+                title: 'Voting trend'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
 </head>
 <body>
 
@@ -80,12 +101,14 @@ function make_red(id) {
                 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e46e96495cf7ee"></script>
             </form>
         </div>
+        <div id="piechart" class="col-md-6 col-md-offset-3"  style="width: 900px; height: 500px; display: none"></div>
     </div>
 </div>
 <script>
 // Alert a message when the user shares somewhere
 function shareEventHandler(evt) {
     if (evt.type == 'addthis.menu.share') {
+        document.getElementById("piechart").style.display = 'block';
        // alert(typeof(evt.data)); // evt.data is an object hash containing all event data
 //        alert(evt.data.service); // evt.data.service is specific to the "addthis.menu.share" event
     }

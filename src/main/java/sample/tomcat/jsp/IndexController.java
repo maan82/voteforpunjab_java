@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -39,6 +40,9 @@ public class IndexController {
     @Autowired
     private VerifyRecaptcha verifyRecaptcha;
 
+    @Autowired
+    private CustomVoteRepository customVoteRepository;
+
     @GetMapping("/")
     public String index(Map<String, Object> model) {
         model.put("time", new Date());
@@ -47,7 +51,9 @@ public class IndexController {
     }
 
     @GetMapping("/share")
-    public String share() {
+    public String share(Map<String, Object> model) {
+        final List<VoteStat> stat = customVoteRepository.getStat();
+        model.put("stat", stat);
         return "share";
     }
 
