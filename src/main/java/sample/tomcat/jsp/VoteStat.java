@@ -6,7 +6,7 @@ public class VoteStat {
 
     public VoteStat(String party, long count) {
         this.count = count;
-        this.party = party;
+        this.party = party.toUpperCase();
     }
 
     public long getCount() {

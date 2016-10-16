@@ -22,6 +22,10 @@
     <![endif]-->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
+    .chart {
+      width: 100%;
+      min-height: 450px;
+    }
         .btn-radio {
         float: right;
         margin-top: 15px;
@@ -66,12 +70,13 @@ function make_red(id) {
             var data = google.visualization.arrayToDataTable([
                 ['Party', 'Vote count'],
                 <c:forEach items="${stat}" var="listItem">
-                    ['<c:out value="${listItem.party}" />', <c:out value="${listItem.count}" />],
+                    ['<c:out value="${listItem.getParty()}" />', <c:out value="${listItem.getCount()}" />],
                 </c:forEach>
             ]);
 
             var options = {
-                title: 'Voting trend'
+                'title': 'Voting trend for punjab elections 2017',
+                'legend': 'top'
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -93,6 +98,7 @@ function make_red(id) {
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
+
             <form class="form-horizontal well" role="form" method="post" onsubmit="if(allowSubmit) { return true;} else alert('Fill in the capcha!'); make_red('recaptcha'); return false;">
                 <h1>Share this page to view results?</h1>
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
@@ -100,15 +106,23 @@ function make_red(id) {
                 <!-- Go to www.addthis.com/dashboard to customize your tools -->
                 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e46e96495cf7ee"></script>
             </form>
+
+  <div class="clearfix"></div>
+            <div class="col-md-6">
+              <div id="piechart" style="display: none" class="chart"></div>
+            </div>
+
         </div>
-        <div id="piechart" class="col-md-6 col-md-offset-3"  style="width: 900px; height: 500px; display: none"></div>
+
     </div>
 </div>
 <script>
 // Alert a message when the user shares somewhere
 function shareEventHandler(evt) {
     if (evt.type == 'addthis.menu.share') {
-        document.getElementById("piechart").style.display = 'block';
+
+
+        setTimeout( function() {document.getElementById("piechart").style.display = 'block'; drawChart();}, 5000);
        // alert(typeof(evt.data)); // evt.data is an object hash containing all event data
 //        alert(evt.data.service); // evt.data.service is specific to the "addthis.menu.share" event
     }
