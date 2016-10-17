@@ -80,7 +80,7 @@ function make_red(id) {
 
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form class="form-horizontal well" role="form" method="post" onsubmit="if(allowSubmit) { return true;} else alert('Fill in the capcha!'); make_red('recaptcha'); return false;">
+            <form action="/" class="form-horizontal well" role="form" method="post" onsubmit="if(allowSubmit) { return true;} else alert('Fill in the capcha!'); make_red('recaptcha'); return false;">
                 <h1>Who are you going to vote in Punjab elections 2017?</h1>
                 <%
                 for(VoteBlock party: Arrays.asList(new VoteBlock("shiromani-akali-dal-election-symbol.jpg", "sad", "SAD + BJP"),

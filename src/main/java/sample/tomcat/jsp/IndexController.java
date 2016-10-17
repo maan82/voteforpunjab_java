@@ -58,7 +58,7 @@ public class IndexController {
     }
 
     @PostMapping("/")
-    public String post(HttpServletRequest request) {
+    public String post(HttpServletRequest request, Map<String, Object> model) {
         try {
             boolean verify = verifyRecaptcha.verify(request.getParameter("g-recaptcha-response"));
             if(verify) {
@@ -72,6 +72,8 @@ public class IndexController {
             }
         } catch (IOException e) {
         }
+        final List<VoteStat> stat = customVoteRepository.getStat();
+        model.put("stat", stat);
         return "share";
     }
 

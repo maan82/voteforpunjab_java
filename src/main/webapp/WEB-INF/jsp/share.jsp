@@ -76,7 +76,7 @@ function make_red(id) {
 
             var options = {
                 'title': 'Voting trend for punjab elections 2017',
-                'legend': 'top'
+                'legend': 'bottom'
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -107,14 +107,23 @@ function make_red(id) {
                 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55e46e96495cf7ee"></script>
             </form>
 
-  <div class="clearfix"></div>
-            <div class="col-md-6">
-              <div id="piechart" style="display: none" class="chart"></div>
-            </div>
 
         </div>
 
     </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12 col-md-offset-3">
+
+  <div class="clearfix"></div>
+            <div class="col-md-12">
+              <div id="piechart" style="display: none" class="chart"></div>
+            </div>
+            </div>
+</div>
 </div>
 <script>
 // Alert a message when the user shares somewhere
@@ -130,6 +139,9 @@ function shareEventHandler(evt) {
 
 // Listen for the share event
 addthis.addEventListener('addthis.menu.share', shareEventHandler);
+$(window).resize(function(){
+	  	drawChart();
+	});
 </script>
 <%@ include file="analytics.jsp" %>
 
